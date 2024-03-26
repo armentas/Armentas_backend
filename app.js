@@ -31,12 +31,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes ---------------------------------------------------------------------------------
 // Dashboard
 app.use('/', require('./routes/index'));
-app.use('/api/dashboard/auth', require('./routes/dashboard/auth'));
-app.use('/api/dashboard/products', require('./routes/dashboard/products'));
-app.use('/api/dashboard/images', require('./routes/dashboard/images'));
-app.use('/api/dashboard/discounts', require('./routes/dashboard/discounts'));
+app.use('/api/dashboard/auth', require('./routes/dashboard/auth.route'));
+app.use('/api/dashboard/products', require('./routes/dashboard/products.route'));
+app.use('/api/dashboard/images', require('./routes/dashboard/images.route'));
+app.use('/api/dashboard/discounts', require('./routes/dashboard/discounts.route'));
 // Shop
-app.use('/api/shop/products', require('./routes/shop/products'));
+app.use('/api/shop/products', require('./routes/shop/products.route'));
 
 
 // catch 404 and forward to error handler
