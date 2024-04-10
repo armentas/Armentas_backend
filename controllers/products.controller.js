@@ -103,8 +103,6 @@ const getAllFullProducts = async (req, res) => {
             product.category = product.category;
             product.sale = product.sale ? true : false;
             product.tags = product.tags.split(',');
-            const [discount] = await getDiscountModel(product.discounts_id);
-            product.discount = discount[0].percent;
             const [images] = await getAllImagesByProductID(product.id);
             product.images = images;
 
