@@ -1,10 +1,14 @@
-const { updateImageModel, deleteImageModel, getImageModel, getAllImageModel, insertLinkImageModel, deleteLinkImageModel } = require("../models/images.model");
+const { updateImageModel, deleteImageModel, getImageModel, getAllImageModel, insertLinkImageModel, deleteLinkImageModel, insertImageModel } = require("../models/images.model");
 
 
 
 const addImage = async (req, res) => {
     try {
-     
+        const [data] = await insertImageModel(req.body);
+        
+        res.send({
+            data
+        });
 
     } catch (error) {
         res.status(500).json({

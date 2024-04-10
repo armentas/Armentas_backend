@@ -2,14 +2,16 @@ const db = require('../configs/db.config').promise();
 
 /*----------------------------- SQL Queries ---------------------------------------------- */
 
-const insertImageModel = ({img_url}) => {
-    return db.query("INSERT INTO images (img_url) VALUES (?)", 
-    [img_url]); 
+const insertImageModel = ({id_product, img_url}) => {
+    return db.query("INSERT INTO images (id_product, img_url) VALUES (?,?)", 
+    [id_product, img_url]); 
 }
 
-const updateImageModel = (id, {img_url}) => {
-    return db.query("UPDATE images SET img_url = ? WHERE id = ?", 
-    [img_url, id]);
+const updateImageModel = (id, data) => {
+    const fieldsToUpdate = Object.keys(data).map(key => `${key} = ?`).join(', ');
+
+    return db.query(`UPDATE images SET ${fieldsToUpdate} WHERE id = ?`, 
+    [...Object.values(data), id]);
 }
 
 const deleteImageModel = (id) => {
@@ -28,23 +30,10 @@ const getAllImageModel = () => {
 
 //---------------------------------------------------
 
-const insertLinkImageModel = ({products_id, images_id}) => {
-    return db.query("INSERT INTO products_has_images (products_id, images_id) VALUES (?,?)", 
-    [products_id, images_id]); 
-}
-
-const deleteLinkImageModel = (id) => {
-    return db.query("DELETE FROM products_has_images WHERE id = ?", 
-    [id]);
-}
-
 module.exports = {
     insertImageModel,
     updateImageModel,
     deleteImageModel,
     getImageModel,
-    getAllImageModel,
-
-    insertLinkImageModel,
-    deleteLinkImageModel
+    getAllImageModel
 }
