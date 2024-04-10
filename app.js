@@ -8,11 +8,11 @@ const logger = require('morgan');
 require('dotenv').config();
 const app = express();
 const corsOptions = {
-  origin: "*",
+  origin: ["http://localhost:4200", "*"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Methods'],
+  allowedHeaders: ['Accept', 'Referer', 'Content-Type', 'Authorization', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Methods'],
   optionsSuccessStatus: 200
 };
 
@@ -21,7 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // Middlewares ----------------------------------------------------------------------------
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
