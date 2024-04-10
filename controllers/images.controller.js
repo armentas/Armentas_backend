@@ -1,11 +1,11 @@
-const { updateImageModel, deleteImageModel, getImageModel, getAllImageModel, insertLinkImageModel, deleteLinkImageModel, insertImageModel } = require("../models/images.model");
+const { updateImageModel, deleteImageModel, getImageModel, getAllImageModel, insertImageModel, getImageByProductIdModel } = require("../models/images.model");
 
 
 
 const addImage = async (req, res) => {
     try {
         const [data] = await insertImageModel(req.body);
-        
+
         res.send({
             data
         });
@@ -62,6 +62,21 @@ const getImage = async (req, res) => {
     }
 }
 
+const getImageByProductId = async (req, res) => {
+    try {
+        const [data] = await getImageByProductIdModel(req.params.id);
+
+        res.send({
+            data
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            msg: error.message,
+        });
+    }
+}
+
 const getAllImages = async (req, res) => {
     try {
         const [data] = await getAllImageModel();
@@ -79,43 +94,11 @@ const getAllImages = async (req, res) => {
 
 //----------------------------------------------------
 
-const addLinkImage = async (req, res) => {
-    try {
-        const [data] = await insertLinkImageModel(req.body);
-
-        res.send({
-            data
-        });
-
-    } catch (error) {
-        res.status(500).json({
-            msg: error.message,
-        });
-    }
-}
-
-const deleteLinkImage = async (req, res) => {
-    try {
-        const [data] = await deleteLinkImageModel(req.params.id);
-
-        res.send({
-            data
-        });
-
-    } catch (error) {
-        res.status(500).json({
-            msg: error.message,
-        });
-    }
-}
-
 module.exports = {
     addImage,
     updateImage,
     deleteImage,
     getImage,
     getAllImages,
-
-    addLinkImage,
-    deleteLinkImage
-};
+    getImageByProductId
+}

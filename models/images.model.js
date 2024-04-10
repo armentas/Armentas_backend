@@ -24,6 +24,11 @@ const getImageModel = (id) => {
     [id]);
 }
 
+const getImageByProductIdModel = (id_product) => {
+    return db.query("SELECT * FROM images WHERE id_product = ?", 
+    [id_product]);
+}
+
 const getAllImageModel = () => {
     return db.query("SELECT * FROM images");
 }
@@ -35,5 +40,6 @@ module.exports = {
     updateImageModel,
     deleteImageModel,
     getImageModel,
-    getAllImageModel
+    getAllImageModel,
+    getImageByProductIdModel
 }
