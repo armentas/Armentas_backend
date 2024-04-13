@@ -2,9 +2,9 @@ const db = require('../configs/db.config').promise();
 
 /*----------------------------- SQL Queries ---------------------------------------------- */
 
-const insertProductModel = ({type, title, description, sku, price, category, sale, tag}) => {
-    return db.query("INSERT INTO products (type, title, description, sku, price, category, sale, tag) VALUES (?,?,?,?,?,?,?,?)", 
-    [type, title, description, sku, price, category, sale, tag]); 
+const insertProductModel = ({type, title, description, sku, price, stock, category, sale, tags}) => {
+    return db.query("INSERT INTO products (type, title, description, sku, price, stock, category, sale, tags) VALUES (?,?,?,?,?,?,?,?,?)", 
+    [type, title, description, sku, price, stock, category, sale, tags]); 
 }
 
 const updateProductModel = (id, data) => {

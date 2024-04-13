@@ -19,6 +19,11 @@ const deleteImageModel = (id) => {
     [id]);
 }
 
+const deleteImageByProductIdModel = (id_product) => {
+    return db.query("DELETE FROM images WHERE id_product = ?", 
+    [id_product]);
+}
+
 const getImageModel = (id) => {
     return db.query("SELECT * FROM images WHERE id = ?", 
     [id]);
@@ -39,6 +44,7 @@ module.exports = {
     insertImageModel,
     updateImageModel,
     deleteImageModel,
+    deleteImageByProductIdModel,
     getImageModel,
     getAllImageModel,
     getImageByProductIdModel

@@ -1,12 +1,16 @@
 const express = require("express");
-const { addImage, updateImage, deleteImage, getImage, getAllImages, addLinkImage, deleteLinkImage, getImageByProductId } = require("../../controllers/images.controller");
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+const { addImageUrl, addImageFile, updateImage, deleteImage, getImage, getAllImages, getImageByProductId } = require("../../controllers/images.controller");
 
 const router = express.Router();
 
 /*---------------------- Collections Endpoints -------------------------------------------------*/
 
 
-router.post("/addImage", addImage);
+router.post("/addImageUrl/:id", addImageUrl);
+
+router.post("/addImageFile/:id", upload.single('image'), addImageFile);
 
 router.put("/updateImage/:id", updateImage);
 

@@ -1,4 +1,5 @@
 const { getDiscountModel } = require("../models/discounts.model");
+const { deleteImageByProductIdModel } = require("../models/images.model");
 const { insertProductModel, updateProductModel, deleteProductModel, getProductModel, getAllProductsModel, getAllImagesByProductID } = require("../models/products.model");
 
 
@@ -32,8 +33,11 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     try {
+        const [deleteImage] = await deleteImageByProductIdModel(req.params.id);
         const [data] = await deleteProductModel(req.params.id);
+
         res.send({
+            deleteImage,
             data
         });
 
