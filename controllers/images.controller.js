@@ -1,6 +1,7 @@
 const { updateImageModel, deleteImageModel, getImageModel, getAllImageModel, insertImageModel, getImageByProductIdModel } = require("../models/images.model");
 const { connectionAws } = require("../configs/aws.config");
 const { uploadOneImage } = require("../util/upload");
+const { DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const fs = require('fs');
 
 
@@ -33,11 +34,11 @@ const addImageUrl = async (req, res) => {
                 "image/png",
                 s3
             );
-
+            img_key = uploadedImage.Key;
             img_urlResult = uploadedImage.Location;
         }
 
-        const [data] = await insertImageModel({ id_product, img_url: img_urlResult });
+        const [data] = await insertImageModel({ id_product, img_key, img_url: img_urlResult });
 
         res.send({
             data
@@ -73,10 +74,10 @@ const addImageFile = async (req, res) => {
             file.mimetype,
             s3
         );
-
+        img_key = uploadedImage.Key;
         img_urlResult = uploadedImage.Location;
 
-        const [data] = await insertImageModel({ id_product, img_url: img_urlResult });
+        const [data] = await insertImageModel({ id_product, img_key, img_url: img_urlResult });
         
         res.send({
             data
@@ -107,6 +108,17 @@ const updateImage = async (req, res) => {
 
 const deleteImage = async (req, res) => {
     try {
+        const s3 = connectionAws();
+
+        //Obtener el Key de la imagen
+        const [dataImage] = await getImageModel(req.params.id);
+        const param = {
+            Bucket: process.env.BUCKET_ARMENTAS_TEST,
+            Key: dataImage[0].img_key
+        }
+        const command = new DeleteObjectCommand(param);
+        await s3.send(command);
+        //Aqui volver a implementar lo que tenia del bocket
         const [data] = await deleteImageModel(req.params.id);
 
         res.send({

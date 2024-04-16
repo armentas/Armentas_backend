@@ -2,9 +2,9 @@ const db = require('../configs/db.config').promise();
 
 /*----------------------------- SQL Queries ---------------------------------------------- */
 
-const insertImageModel = ({id_product, img_url}) => {
-    return db.query("INSERT INTO images (id_product, img_url) VALUES (?,?)", 
-    [id_product, img_url]); 
+const insertImageModel = ({id_product, img_key, img_url}) => {
+    return db.query("INSERT INTO images (id_product, img_key, img_url) VALUES (?,?,?)", 
+    [id_product, img_key, img_url]); 
 }
 
 const updateImageModel = (id, data) => {

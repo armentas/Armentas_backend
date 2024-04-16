@@ -1,7 +1,7 @@
-const { getDiscountModel } = require("../models/discounts.model");
-const { deleteImageByProductIdModel } = require("../models/images.model");
+const { deleteImageByProductIdModel, getImageByProductIdModel } = require("../models/images.model");
 const { insertProductModel, updateProductModel, deleteProductModel, getProductModel, getAllProductsModel, getAllImagesByProductID } = require("../models/products.model");
-
+const { connectionAws } = require("../configs/aws.config");
+const { DeleteObjectCommand } = require("@aws-sdk/client-s3");
 
 const addProduct = async (req, res) => {
     try {
@@ -33,6 +33,20 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     try {
+        const s3 = connectionAws();
+        //Obtener todas las imagenes
+        const [dataImages] = await getImageByProductIdModel(req.params.id);
+
+        // Borrar imagenes en el Bucket de S3
+        const result = await Promise.all(dataImages.map( async (image) => {
+            const param = {
+                Bucket: process.env.BUCKET_ARMENTAS_TEST,
+                Key: image.img_key
+            }
+            const command = new DeleteObjectCommand(param);
+            await s3.send(command);
+        }));
+        
         const [deleteImage] = await deleteImageByProductIdModel(req.params.id);
         const [data] = await deleteProductModel(req.params.id);
 
