@@ -21,7 +21,7 @@ const createCheckoutSession = async (req, res) => {
             ui_mode: 'embedded',
             line_items: [...items],
             mode: 'payment',
-            return_url: `${process.env.URL_ECOMMERCE_LOCAL}shop/checkout/success/{CHECKOUT_SESSION_ID}`,
+            return_url: `${process.env.URL_ECOMMERCE}shop/checkout/success/{CHECKOUT_SESSION_ID}`,
             // cancel_url: `${process.env.URL_ECOMMERCE_LOCAL}shop/cart`,
         });
 
