@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
-const { addImageUrl, addImageFile, updateImage, deleteImage, getImage, getAllImages, getImageByProductId } = require("../../controllers/images.controller");
+const { addImageUrl, addImageFile, updateImage, deleteImage, getImage, getAllImages, getImageByProductId } = require("../../controllers/images.controllers");
 
 const router = express.Router();
 
