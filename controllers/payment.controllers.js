@@ -1,3 +1,5 @@
+const { getOrderBySiteOrderIdAndSku, insertOrderModel } = require('../models/orders.model');
+
 const stripe = require('stripe')(process.env.STRIPE_sk);
 
 const createCheckoutSession = async (req, res) => {
@@ -110,23 +112,50 @@ const updatePaymentIntentShipping = async (req, res) => {
     }
 }
 
-const sessionStatus = async (req, res) => {
+const getPaymentMethod = async (req, res) => {
     try {
-        const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+        const { paymentMethodId } = req.params;
+
+        const paymentMethod = await stripe.paymentMethods.retrieve(paymentMethodId);
 
         res.send({
-            status: session.status,
-            customer_email: session.customer_details.email
+            paymentMethod
         });
 
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             msg: error.message,
         });
     }
 }
 
-// ---------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------
+
+const saveOrder = async (req, res) => {
+    try {
+        const { data } = req.body;
+        const [exist] = await getOrderBySiteOrderIdAndSku(data.site_order_id, data.sku);
+        if (exist.length > 0) {
+            return res.status(400).json({ msg: "El pedido ya existe en la base de datos." });
+        }
+
+        // Insertar el pedido si no existe
+        const [result] = await insertOrderModel(data);
+        res.send({
+            result
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: error.message,
+        });
+    }
+}
+
+// ----------------------------  Helpers  -----------------------------------------------
+
 const calculateOrderAmount = (items) => {
     return items.reduce((total, item) => {
         return total + (item.price * item.quantity);
@@ -138,5 +167,6 @@ module.exports = {
     cancelPaymentIntent,
     updatePaymentIntentShipping,
     createPaymentIntent,
-    sessionStatus
+    getPaymentMethod,
+    saveOrder
 }
