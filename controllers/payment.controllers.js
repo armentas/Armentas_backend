@@ -1,6 +1,6 @@
 const { getOrderBySiteOrderIdAndSku, insertOrderModel } = require('../models/orders.model');
 
-const stripe = require('stripe')(process.env.STRIPE_sk);
+const stripe = require('stripe')(process.env.STRIPE_SK);
 
 const createCheckoutSession = async (req, res) => {
     try {
