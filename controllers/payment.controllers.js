@@ -40,11 +40,10 @@ const createCheckoutSession = async (req, res) => {
 
 const createPaymentIntent = async (req, res) => {
     try {
-        const { items } = req.body;
+        const { amount } = req.body;
 
-        console.log(calculateOrderAmount(items));
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: calculateOrderAmount(items) * 100,
+            amount: amount * 100,
             currency: "usd",
             automatic_payment_methods: {
                 enabled: true,
