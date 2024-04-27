@@ -42,6 +42,7 @@ const createPaymentIntent = async (req, res) => {
     try {
         const { items } = req.body;
 
+        console.log(calculateOrderAmount(items));
         const paymentIntent = await stripe.paymentIntents.create({
             amount: calculateOrderAmount(items) * 100,
             currency: "usd",
