@@ -41,9 +41,10 @@ const createCheckoutSession = async (req, res) => {
 const createPaymentIntent = async (req, res) => {
     try {
         const { amount } = req.body;
-
+        const totalAmount = parseInt(amount * 100);
+        
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: amount * 100,
+            amount: totalAmount,
             currency: "usd",
             automatic_payment_methods: {
                 enabled: true,
@@ -156,11 +157,11 @@ const saveOrder = async (req, res) => {
 
 // ----------------------------  Helpers  -----------------------------------------------
 
-const calculateOrderAmount = (items) => {
-    return items.reduce((total, item) => {
-        return total + (item.price * item.quantity);
-    }, 0);
-};
+// const calculateOrderAmount = (items) => {
+//     return items.reduce((total, item) => {
+//         return total + (item.price * item.quantity);
+//     }, 0);
+// };
 
 module.exports = {
     createCheckoutSession,
