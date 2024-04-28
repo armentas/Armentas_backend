@@ -40,10 +40,11 @@ const createCheckoutSession = async (req, res) => {
 
 const createPaymentIntent = async (req, res) => {
     try {
-        const { amount } = req.body;
+        const { data } = req.body;
+        const amount = parseFloat(numero.toFixed(2));
 
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: amount.toFixed(2) * 100,
+            amount: amount * 100,
             currency: "usd",
             automatic_payment_methods: {
                 enabled: true,
