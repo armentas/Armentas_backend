@@ -10,7 +10,7 @@ router.get("/getAllOrdersYear", getAllOrdersYear);
 
 router.get("/getAllOrdersMonth", getAllOrdersMonth);
 
-router.get("/getAllOrdersByDate", getAllOrdersByDate);
+router.post("/getAllOrdersByDate", getAllOrdersByDate);
 
 router.get("/latestProductsAdded", getLatestProductsAdded)
 
