@@ -1,4 +1,4 @@
-const { getAllOrdersModel, getAllOrdersYearModel, getAllOrdersByDateModel, getAllOrdersMonthModel, getlatestProductsAddedModel } = require("../models/dash.model");
+const { getAllOrdersModel, getAllOrdersYearModel, getAllOrdersByDateModel, getAllOrdersMonthModel, getlatestProductsAddedModel, updateStatusModel, getImageUrlFromSkuModel, getAllOrdersPreviousMonthModel } = require("../models/dash.model");
 
 
 const getAllOrders = async (req, res) => {
@@ -46,6 +46,21 @@ const getAllOrdersMonth = async (req, res) => {
     }
 }
 
+const getAllOrdersPreviousMonth = async (req, res) => {
+    try {
+        const [data] = await getAllOrdersPreviousMonthModel();
+        res.send({
+            amount: data.length,
+            data
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            msg: error.message,
+        });
+    }
+}
+
 const getAllOrdersByDate = async (req, res) => {
     try {
         const { start_date, end_date } = req.body;
@@ -77,11 +92,47 @@ const getLatestProductsAdded = async (req, res) => {
     }
 }
 
+const updateStatus = async (req, res) => {
+    try {
+        const { site_order_id } = req.params;
+        const { shipping_status } = req.body;
+
+        const [data] = await updateStatusModel(site_order_id, { shipping_status });
+        res.send({
+            data
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            msg: error.message,
+        });
+    }
+}
+
+const getImageUrlFromSku = async (req, res) => {
+    try {
+        const { sku } = req.params;
+
+        const [data] = await getImageUrlFromSkuModel(sku);
+        res.send({
+            data
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            msg: error.message,
+        });
+    }
+}
+
 module.exports = {
     getAllOrders,
     getAllOrdersYear,
     getAllOrdersMonth,
+    getAllOrdersPreviousMonth,
     getAllOrdersByDate,
 
-    getLatestProductsAdded
+    getLatestProductsAdded,
+    updateStatus,
+    getImageUrlFromSku
 };
