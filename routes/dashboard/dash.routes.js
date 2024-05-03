@@ -1,5 +1,7 @@
 const express = require("express");
 const { getAllOrders, getAllOrdersYear, getAllOrdersByDate, getAllOrdersMonth, getLatestProductsAdded, updateStatus, getImageUrlFromSku, getAllOrdersPreviousMonth } = require("../../controllers/dash.controller");
+const { checkToken } = require("../../Middlewares/checkToken");
+const { checkPermission } = require("../../Middlewares/checkPermission");
 const router = express.Router();
 
 /*---------------------- Collections Endpoints -------------------------------------------------*/
@@ -16,7 +18,7 @@ router.post("/getAllOrdersByDate", getAllOrdersByDate);
 
 router.get("/latestProductsAdded", getLatestProductsAdded);
 
-router.put("/updateStatus/:site_order_id", updateStatus);
+router.put("/updateStatus/:site_order_id", checkToken, checkPermission('Update'), updateStatus);
 
 router.get("/getImageUrlFromSku/:sku", getImageUrlFromSku);
 

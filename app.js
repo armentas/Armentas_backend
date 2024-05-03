@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const logger = require('morgan');
+const { checkToken } = require('./Middlewares/checkToken');
+
 
 require('dotenv').config();
 const app = express();
@@ -35,7 +37,7 @@ app.use('/api/dashboard/auth', require('./routes/dashboard/auth.routes'));
 app.use('/api/dashboard/products', require('./routes/dashboard/products.routes'));
 app.use('/api/dashboard/images', require('./routes/dashboard/images.routes'));
 app.use('/api/dashboard/discounts', require('./routes/dashboard/discounts.routes'));
-app.use('/api/dashboard/dash', require('./routes/dashboard/dash.routes'));
+app.use('/api/dashboard/dash', checkToken, require('./routes/dashboard/dash.routes'));
 // Shop
 app.use('/api/shop/products', require('./routes/shop/products.routes'));
 app.use('/api/shop/payment', require('./routes/shop/payment.routes'));
