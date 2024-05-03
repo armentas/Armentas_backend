@@ -1,7 +1,7 @@
 const express = require("express");
 const { getAllOrders, getAllOrdersYear, getAllOrdersByDate, getAllOrdersMonth, getLatestProductsAdded, updateStatus, getImageUrlFromSku, getAllOrdersPreviousMonth } = require("../../controllers/dash.controller");
 const { checkToken } = require("../../middlewares/checkToken");
-const { checkPermission } = require("../../Middlewares/checkPermission");
+const { checkPermission } = require("../../middlewares/checkPermission");
 const router = express.Router();
 
 /*---------------------- Collections Endpoints -------------------------------------------------*/
