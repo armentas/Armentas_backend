@@ -1,6 +1,6 @@
 const express = require("express");
 const { addProduct, updateProduct, deleteProduct, getProduct, getAllProducts, getFullProduct, getAllFullProducts } = require("../../controllers/products.controllers");
-const { checkToken } = require("../../Middlewares/checkToken");
+const { checkToken } = require("../../middlewares/checkToken");
 const { checkPermission } = require("../../Middlewares/checkPermission");
 
 const router = express.Router();

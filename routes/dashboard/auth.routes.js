@@ -1,7 +1,7 @@
 const express = require("express");
 const { login, register, getAllUsers, getUser, updateUser, deleteUser } = require("../../controllers/auth.controller");
 const { checkPermission } = require("../../Middlewares/checkPermission");
-const { checkToken } = require("../../Middlewares/checkToken");
+const { checkToken } = require("../../middlewares/checkToken");
 
 
 

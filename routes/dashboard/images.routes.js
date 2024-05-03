@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const { addImageUrl, addImageFile, updateImage, deleteImage, getImage, getAllImages, getImageByProductId } = require("../../controllers/images.controllers");
-const { checkToken } = require("../../Middlewares/checkToken");
+const { checkToken } = require("../../middlewares/checkToken");
 const { checkPermission } = require("../../Middlewares/checkPermission");
 
 const router = express.Router();

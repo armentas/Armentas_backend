@@ -4,7 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const logger = require('morgan');
-const { checkToken } = require('./Middlewares/checkToken');
+const { checkToken } = require('./middlewares/checkToken');
 
 
 require('dotenv').config();
