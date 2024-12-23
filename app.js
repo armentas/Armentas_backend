@@ -35,12 +35,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', require('./routes/index'));
 app.use('/api/dashboard/auth', require('./routes/dashboard/auth.routes'));
 app.use('/api/dashboard/products', require('./routes/dashboard/products.routes'));
+app.use('/api/dashboard/collections', require('./routes/dashboard/collections.routes'));
+app.use('/api/dashboard/categories', require('./routes/dashboard/categories.routes'));
+app.use('/api/dashboard/colors', require('./routes/dashboard/colors.routes'));
 app.use('/api/dashboard/images', require('./routes/dashboard/images.routes'));
 app.use('/api/dashboard/discounts', require('./routes/dashboard/discounts.routes'));
 app.use('/api/dashboard/dash', checkToken, require('./routes/dashboard/dash.routes'));
 // Shop
 app.use('/api/shop/products', require('./routes/shop/products.routes'));
 app.use('/api/shop/payment', require('./routes/shop/payment.routes'));
+app.use('/api/shop/collections', require('./routes/shop/collections.routes'));
+app.use('/api/shop/categories', require('./routes/shop/categories.routes'));
 
 
 // catch 404 and forward to error handler

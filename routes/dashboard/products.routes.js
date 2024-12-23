@@ -1,11 +1,11 @@
 const express = require("express");
-const { addProduct, updateProduct, deleteProduct, getProduct, getAllProducts, getFullProduct, getAllFullProducts } = require("../../controllers/products.controllers");
+const { addProduct, updateProduct, deleteProduct, getProduct, getAllProducts, getFullProduct, getAllFullProducts } = require("../../controllers/products.controller");
 const { checkToken } = require("../../middlewares/checkToken");
 const { checkPermission } = require("../../middlewares/checkPermission");
 
 const router = express.Router();
 
-/*---------------------- Collections Endpoints -------------------------------------------------*/
+/*---------------------- Products Endpoints -------------------------------------------------*/
 
 router.post("/addProduct", checkToken, checkPermission('Create'), addProduct);
 

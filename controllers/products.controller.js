@@ -2,6 +2,7 @@ const { deleteImageByProductIdModel, getImageByProductIdModel } = require("../mo
 const { insertProductModel, updateProductModel, deleteProductModel, getProductModel, getAllProductsModel, getAllImagesByProductID } = require("../models/products.model");
 const { connectionAws } = require("../configs/aws.config");
 const { DeleteObjectCommand } = require("@aws-sdk/client-s3");
+const { getAllCollectionsModel } = require("../models/collections.model");
 
 const addProduct = async (req, res) => {
     try {
@@ -11,6 +12,8 @@ const addProduct = async (req, res) => {
         });
 
     } catch (error) {
+        console.log(error);
+        
         res.status(500).json({
             msg: error.message,
         });
@@ -116,8 +119,10 @@ const getFullProduct = async (req, res) => {
 const getAllFullProducts = async (req, res) => {
     try {
         const [allProducts] = await getAllProductsModel();
+        const [allCollections] = await getAllCollectionsModel();
         
         const productDetails = await Promise.all(allProducts.map(async (product) => {
+            product.collection = allCollections.filter(col => col.id === product.collection)[0].name;
             product.category = product.category;
             product.sale = product.sale ? true : false;
             product.tags = product.tags.split(',');

@@ -1,10 +1,11 @@
 const express = require("express");
-const { getAllFullProducts } = require("../../controllers/products.controller");
+const { getAllCategories } = require("../../controllers/categories.controller");
 
 const router = express.Router();
 
 /*---------------------- Collections Endpoints -------------------------------------------------*/
 
-router.get("/getAllFullProduct/", getAllFullProducts);
+router.get("/getAllCategories", getAllCategories);
+
 
 module.exports = router;
