@@ -10,7 +10,7 @@ const login = async (req, res) => {
 
         if (!user[0]) {
             return res.status(404).json({
-                msg: 'Email / Password no son correctos - email'
+                msg: 'Email / Password are not correct - Email'
             });
         }
 
@@ -18,7 +18,7 @@ const login = async (req, res) => {
         const validPassword = bcryptjs.compareSync(password, user[0].password);
         if (!validPassword) {
             return res.status(404).json({
-                msg: 'Email / Password no son correctos - password'
+                msg: 'Email / Password are not correct - Password'
             });
         }
 
@@ -26,7 +26,7 @@ const login = async (req, res) => {
 
         // Muestra mensaje de BIENVENIDA y Genera el Token si todo va bien
         res.status(200).json({
-            msg: `Bienvenido/a ${user[0].name}`,
+            msg: `Welcome ${user[0].name}`,
             token: generateToken(user[0]),
             user: user[0]
         })
@@ -45,7 +45,7 @@ const register = async (req, res) => {
         
         if (exist[0]) {
             return res.send({
-                msg: 'Ya existe un usuario con este correo...'
+                msg: 'There is already a user with this email...'
             })
         }
 
@@ -57,7 +57,7 @@ const register = async (req, res) => {
 
         // Muestra un mensaje SUCCESSFUL y genera un Token para este usuario
         res.status(200).send({
-            msg: 'Su registro ha sido satisfactorio',
+            msg: 'Its record has been satisfactory',
             token: generateToken(user[0]),
             user: user[0]
         })
