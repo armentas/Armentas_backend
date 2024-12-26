@@ -41,11 +41,13 @@ app.use('/api/dashboard/colors', require('./routes/dashboard/colors.routes'));
 app.use('/api/dashboard/images', require('./routes/dashboard/images.routes'));
 app.use('/api/dashboard/discounts', require('./routes/dashboard/discounts.routes'));
 app.use('/api/dashboard/dash', checkToken, require('./routes/dashboard/dash.routes'));
+app.use('/api/dashboard/sendMailer', require('./routes/dashboard/sendMailer.routes'));
 // Shop
 app.use('/api/shop/products', require('./routes/shop/products.routes'));
 app.use('/api/shop/payment', require('./routes/shop/payment.routes'));
 app.use('/api/shop/collections', require('./routes/shop/collections.routes'));
 app.use('/api/shop/categories', require('./routes/shop/categories.routes'));
+app.use('/api/shop/sendMailer', require('./routes/shop/sendMailer.routes'));
 
 
 // catch 404 and forward to error handler

@@ -23,6 +23,7 @@ const createCheckoutSession = async (req, res) => {
             ui_mode: 'embedded',
             line_items: [...items],
             mode: 'payment',
+            // automatic_tax: { enabled: true },
             return_url: `${process.env.URL_ECOMMERCE}shop/checkout/success/{CHECKOUT_SESSION_ID}`,
             // cancel_url: `${process.env.URL_ECOMMERCE_LOCAL}shop/cart`,
         });
@@ -138,7 +139,7 @@ const saveOrder = async (req, res) => {
         const { data } = req.body;
         const [exist] = await getOrderBySiteOrderIdAndSku(data.site_order_id, data.sku);
         if (exist.length > 0) {
-            return res.status(400).json({ msg: "El pedido ya existe en la base de datos." });
+            return res.status(400).json({ msg: "The order already exists in the database." });
         }
 
         // Insertar el pedido si no existe

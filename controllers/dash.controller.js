@@ -94,10 +94,9 @@ const getLatestProductsAdded = async (req, res) => {
 
 const updateStatus = async (req, res) => {
     try {
-        const { site_order_id } = req.params;
-        const { shipping_status } = req.body;
+        const { site_order_id } = req.params;       
 
-        const [data] = await updateStatusModel(site_order_id, { shipping_status });
+        const [data] = await updateStatusModel(site_order_id, req.body);
         res.send({
             data
         });

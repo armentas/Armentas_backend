@@ -1,5 +1,5 @@
 const { deleteImageByProductIdModel, getImageByProductIdModel } = require("../models/images.model");
-const { insertProductModel, updateProductModel, deleteProductModel, getProductModel, getAllProductsModel, getAllImagesByProductID } = require("../models/products.model");
+const { insertProductModel, updateProductModel, deleteProductModel, getProductModel, getAllProductsModel, getAllImagesByProductID, getProductbySKUModel } = require("../models/products.model");
 const { connectionAws } = require("../configs/aws.config");
 const { DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const { getAllCollectionsModel } = require("../models/collections.model");
@@ -68,6 +68,20 @@ const deleteProduct = async (req, res) => {
 const getProduct = async (req, res) => {
     try {
         const [data] = await getProductModel(req.params.id);
+        res.send({
+            data
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            msg: error.message,
+        });
+    }
+}
+
+const getProductbySKU = async (req, res) => {
+    try {
+        const [data] = await getProductbySKUModel(req.params.sku);
         res.send({
             data
         });
@@ -149,6 +163,7 @@ module.exports = {
     updateProduct,
     deleteProduct,
     getProduct,
+    getProductbySKU,
     getAllProducts,
 
     getFullProduct,

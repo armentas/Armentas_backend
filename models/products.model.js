@@ -24,6 +24,11 @@ const getProductModel = (id) => {
     [id]);
 }
 
+const getProductbySKUModel = (sku) => {
+    return db.query("SELECT * FROM products WHERE sku = ? LIMIT 1", 
+    [sku]);
+}
+
 const getAllProductsModel = () => {
     return db.query("SELECT * FROM products ORDER BY created_date DESC");
 }
@@ -39,6 +44,7 @@ module.exports = {
     updateProductModel,
     deleteProductModel,
     getProductModel,
+    getProductbySKUModel,
     getAllProductsModel,
     getAllImagesByProductID
 }
