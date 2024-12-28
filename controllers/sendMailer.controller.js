@@ -1,46 +1,47 @@
 const { forgot_pass_template, order_confirmation_template, message_notification_template, tracking_number_template } = require("../util/templates");
 const bcryptjs = require('bcryptjs');
-const sgMail = require('@sendgrid/mail')
+const sgMail = require('@sendgrid/mail');
+const { getuserByEmailModel, updateUser2Model } = require("../models/auth.model");
+const { passGenerator } = require("../util/utilities");
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 //Enviar mensajes para Resetear Password
 const sendMailToResetPass = async (req, res) => {
   try {
-    // const email = req.body.email;
-    // const [exist] = await getInfluencerByEmail(email);
-    // console.log(exist);
+    const email = req.body.email;
+    const [exist] = await getuserByEmailModel(email);
 
-    // if (exist.length == 0) {
-    //   return res.status(404).json({
-    //     msg: "Email not registered."
-    //   });
-    // }
+    if (exist.length == 0) {
+      return res.status(404).json({
+        msg: "Email not registered."
+      });
+    }
 
-    // const newPass = passGenerator()
-    // const newPassEncoded = bcryptjs.hashSync(newPass, 10);
-    // const updateResult = await updateInfluencerModel({ password: newPassEncoded }, exist[0].id);
+    const newPass = passGenerator()
+    const newPassEncoded = bcryptjs.hashSync(newPass, 10);
+    const updateResult = await updateUser2Model({ password: newPassEncoded }, exist[0].id);
 
-    // if (!updateResult) {
-    //   return res.status(500).json({
-    //     msg: "Failed to update password."
-    //   });
-    // }
+    if (!updateResult) {
+      return res.status(500).json({
+        msg: "Failed to update password."
+      });
+    }
 
-    // const msg = {
-    //   to: email, // Change to your recipient
-    //   from: 'support@pistonsfuelpower.com', // Change to your verified sender
-    //   subject: 'Password reseted',
-    //   text: 'Thank you very much for being part of this project',
-    //   html: forgot_pass_template(newPass),
-    // }
+    const msg = {
+      to: email, // Change to your recipient
+      from: 'support@pistonsfuelpower.com', // Change to your verified sender
+      subject: 'Password reseted',
+      text: 'An email with the necessary information has been sent to your mailbox.',
+      html: forgot_pass_template(newPass),
+    }
 
-    // await sgMail.send(msg);
+    await sgMail.send(msg);
 
-    // // Responder después de que se haya enviado el correo
-    // res.send({
-    //   msg: 'Email sent successfully'
-    // });
+    // Responder después de que se haya enviado el correo
+    res.send({
+      msg: 'Email sent successfully'
+    });
 
   } catch (error) {
     console.log(error);

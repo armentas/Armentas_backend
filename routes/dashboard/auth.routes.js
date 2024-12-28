@@ -1,5 +1,5 @@
 const express = require("express");
-const { login, register, getAllUsers, getUser, updateUser, deleteUser } = require("../../controllers/auth.controller");
+const { login, register, getAllUsers, getUser, updateUser, deleteUser, getEmail } = require("../../controllers/auth.controller");
 const { checkPermission } = require("../../middlewares/checkPermission");
 const { checkToken } = require("../../middlewares/checkToken");
 
@@ -16,6 +16,8 @@ router.post("/register", checkToken, checkPermission('Create'), register);
 router.get("/getUsers", getAllUsers)
 
 router.get("/getUser/:id", getUser)
+
+router.get("/getEmail/:email", getEmail)
 
 router.put("/updateUser/:id", checkToken, checkPermission('Update'), updateUser)
 
