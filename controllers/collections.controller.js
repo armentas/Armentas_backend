@@ -96,11 +96,29 @@ const addImageFile = async (req, res) => {
         );
         img_urlResult = uploadedImage.Location;
 
+        // Eliminar el archivo temporal después de subirlo a S3
+        fs.unlink(file.path, (err) => {
+            if (err) {
+                console.error(`Error deleting temporary file: ${err}`);
+            } else {
+                console.log(`Temporary file ${file.path} deleted.`);
+            }
+        });
+
         res.send({
             data: img_urlResult
         });
 
     } catch (error) {
+        // Manejo de errores: eliminar archivo temporal si ocurre un error
+        if (req.file && req.file.path) {
+            fs.unlink(req.file.path, (err) => {
+                if (err) {
+                    console.error(`Error deleting temporary file: ${err}`);
+                }
+            });
+        }
+        
         res.status(500).json({
             msg: error.message,
         });
