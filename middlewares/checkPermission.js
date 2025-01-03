@@ -4,13 +4,13 @@ const checkPermission = (permission) => {
     return (req, res, next) => {
         if (!req.user) {
             return res.status(401).json({
-                msg: 'Peligro: Se está intentando acceder sin autorización'
+                msg: 'Danger: Unauthorized access is being attempted.'
             });
         }
         
         if (!req.user.permissions.includes(permission) && !req.user.permissions.includes('All')) {
             return res.status(403).json({
-                msg: `No tiene permisos de: ${permission}`
+                msg: `You do not have ${permission} permissions`
             });
         }
     

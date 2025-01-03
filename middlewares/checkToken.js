@@ -5,7 +5,7 @@ const { getUserById } = require('../models/auth.model');
 const checkToken = async (req, res, next) => {
 
     if(!req.headers['authorization']){
-        return res.status(500).json({ msg: 'Debe incluirse la cabecera Authorization'});
+        return res.status(500).json({ msg: 'The Authorization header must be included'});
     }
 
     const token = req.headers['authorization'];
