@@ -10,7 +10,7 @@ const { checkToken } = require('./middlewares/checkToken');
 require('dotenv').config();
 const app = express();
 const corsOptions = {
-  origin: ["https://armentas-shop-db.web.app/", "*"],
+  origin: ["https://armentas-shop-db.web.app/", "https://armentas-shop-fr.web.app/"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   credentials: true,
@@ -23,7 +23,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // Middlewares ----------------------------------------------------------------------------
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

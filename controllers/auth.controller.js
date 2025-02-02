@@ -44,7 +44,7 @@ const register = async (req, res) => {
     const [exist] = await getUserByEmail(req.body.email);
 
     if (exist[0]) {
-      return res.send({
+      return res.status(409).send({
         msg: 'There is already a user with this email...'
       })
     }
