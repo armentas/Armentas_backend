@@ -6,13 +6,23 @@ const cors = require('cors');
 const logger = require('morgan');
 const { checkToken } = require('./middlewares/checkToken');
 
-
 require('dotenv').config();
+
 const app = express();
+const allowedOrigins = [
+  "https://armentas-shop-db.web.app",
+  "https://armentas-shop-fr.web.app"
+];
+
 const corsOptions = {
-  origin: ["https://armentas-shop-db.web.app/", "https://armentas-shop-fr.web.app/", "*"],
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  preflightContinue: false,
   credentials: true,
   allowedHeaders: ['Accept', 'Referer', 'Content-Type', 'Authorization', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Methods'],
   optionsSuccessStatus: 200
