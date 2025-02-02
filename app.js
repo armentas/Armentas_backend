@@ -17,8 +17,9 @@ const allowedOrigins = [
 const corsOptions = {
   origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
   credentials: true,
-  allowedHeaders: ['Accept', 'Referer', 'Content-Type', 'Authorization', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Methods'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Methods'],
   optionsSuccessStatus: 200
 };
 
