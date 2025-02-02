@@ -33,6 +33,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // Middlewares ----------------------------------------------------------------------------
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
+  res.header("Access-Control-Allow-Headers", "Accept,Referer,Content-Type,Authorization,Access-Control-Allow-Origin,Access-Control-Allow-Methods");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
