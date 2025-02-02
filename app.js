@@ -10,7 +10,7 @@ const { checkToken } = require('./middlewares/checkToken');
 require('dotenv').config();
 const app = express();
 const corsOptions = {
-  origin: ["https://armentas-shop-db.web.app/", "https://armentas-shop-fr.web.app/"],
+  origin: ["https://armentas-shop-db.web.app/", "https://armentas-shop-fr.web.app/", "*"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   credentials: true,
