@@ -11,7 +11,8 @@ require('dotenv').config();
 const app = express();
 const allowedOrigins = [
   "https://armentas-shop-db.web.app",
-  "https://armentas-shop-fr.web.app"
+  "https://armentas-shop-fr.web.app",
+  "https://pinartes.org"
 ];
 
 const corsOptions = {
