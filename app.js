@@ -13,7 +13,8 @@ const allowedOrigins = [
   "https://armentas-shop-db.web.app",
   "https://armentas-shop-fr.web.app",
   "https://dashboard.pinartes.org",
-  "https://pinartes.org"
+  "https://pinartes.org",
+  "https://www.pinartes.org"
 ];
 
 const corsOptions = {
